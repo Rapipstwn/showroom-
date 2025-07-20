@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout | Showroom Mobil Bekas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/script.js" defer></script>
+</head>
+<body onload="tampilkanCheckout()">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="bi bi-car-front"></i> Showroom Mobil Bekas</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html"><i class="bi bi-shop me-1"></i>Produk</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html"><i class="bi bi-cart3 me-1"></i>Keranjang</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- CHECKOUT HERO -->
+<section class="checkout-hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="checkout-hero-title">💳 Checkout Pesanan</h1>
+        <p class="checkout-hero-subtitle">Selesaikan pembelian mobil impian Anda</p>
+      </div>
+      <div class="col-md-4 text-end">
+        <div class="checkout-progress">
+          <div class="progress-step active">1. Keranjang</div>
+          <div class="progress-step active">2. Checkout</div>
+          <div class="progress-step">3. Pembayaran</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HALAMAN CHECKOUT -->
+<section class="checkout-content py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Order Summary -->
+        <div class="checkout-section">
+          <h3 class="section-title">🚗 Ringkasan Pesanan</h3>
+          <div class="order-items" id="checkout-items">
+            <!-- Items will be loaded here -->
+          </div>
+        </div>
+        
+        <!-- Customer Information -->
+        <div class="checkout-section">
+          <h3 class="section-title">📋 Informasi Pembeli</h3>
+          <form id="customer-form">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Nama Lengkap *</label>
+                <input type="text" class="form-control" id="customer-name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">No. Telepon *</label>
+                <input type="tel" class="form-control" id="customer-phone" required>
+              </div>
+              <div class="col-12 mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="customer-email">
+              </div>
+              <div class="col-12 mb-3">
+                <label class="form-label">Alamat Lengkap *</label>
+                <textarea class="form-control" id="customer-address" rows="3" required></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="col-lg-4">
+        <!-- Payment Methods -->
+        <div class="payment-section">
+          <h4 class="payment-title">💰 Metode Pembayaran</h4>
+          
+          <div class="payment-methods">
+            <div class="payment-method">
+              <input type="radio" id="transfer-bri" name="payment" value="bri" checked>
+              <label for="transfer-bri" class="payment-label">
+                <div class="bank-info">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_2020.svg" alt="BRI" class="bank-logo">
+                  <div class="bank-details">
+                    <strong>Bank BRI</strong>
+                    <div class="account-info">1234-5678-9012-3456</div>
+                    <div class="account-name">Showroom Mobil Bekas</div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            
+            <div class="payment-method">
+              <input type="radio" id="transfer-bca" name="payment" value="bca">
+              <label for="transfer-bca" class="payment-label">
+                <div class="bank-info">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA" class="bank-logo">
+                  <div class="bank-details">
+                    <strong>Bank BCA</strong>
+                    <div class="account-info">9876-5432-1098-7654</div>
+                    <div class="account-name">Showroom Mobil Bekas</div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            
+            <div class="payment-method">
+              <input type="radio" id="transfer-btn" name="payment" value="btn">
+              <label for="transfer-btn" class="payment-label">
+                <div class="bank-info">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Bank_Tabungan_Negara_logo.svg" alt="BTN" class="bank-logo">
+                  <div class="bank-details">
+                    <strong>Bank BTN</strong>
+                    <div class="account-info">5555-4444-3333-2222</div>
+                    <div class="account-name">Showroom Mobil Bekas</div>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Order Total -->
+          <div class="order-summary">
+            <div class="summary-item">
+              <span>Subtotal:</span>
+              <span id="checkout-subtotal">Rp 0</span>
+            </div>
+            <div class="summary-item">
+              <span>Pajak (10%):</span>
+              <span id="checkout-tax">Rp 0</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-total">
+              <span>Total Pembayaran:</span>
+              <span id="checkout-total">Rp 0</span>
+            </div>
+          </div>
+          
+          <!-- Payment Instructions -->
+          <div class="payment-instructions">
+            <h5>📝 Petunjuk Pembayaran:</h5>
+            <ol>
+              <li>Transfer sesuai nominal yang tertera</li>
+              <li>Simpan bukti transfer</li>
+              <li>Kirim bukti via WhatsApp ke 0812-3456-7890</li>
+              <li>Tunggu konfirmasi dari kami</li>
+            </ol>
+          </div>
+          
+          <button class="checkout-btn" onclick="prosesPembayaran()">
+            <i class="bi bi-credit-card me-2"></i>
+            Konfirmasi Pesanan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center py-4 mt-5">
+  <div class="container">
+    <p class="mb-1">&copy; Showroom mobil bekas. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
