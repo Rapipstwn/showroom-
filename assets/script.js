@@ -47,7 +47,14 @@ function loadCart() {
     "Honda Civic Nouva": "https://i.pinimg.com/736x/47/25/c3/4725c3d79c9387914deffe42bc3fdcdf.jpg",
     "Mazda Astina": "https://i.pinimg.com/736x/7c/26/ff/7c26ff7ab6e8735f75f6974c81df91ff.jpg",
     "Toyota Kijang Krista": "https://i.pinimg.com/736x/91/2f/51/912f51ac6664d495bebc9e75a92af636.jpg",
-    "Isuzu Panther Hi Grade": "https://i.pinimg.com/736x/91/cf/91/91cf91c56fbd3244c3360b4fdee688a3.jpg"
+    "Isuzu Panther Hi Grade": "https://i.pinimg.com/736x/91/cf/91/91cf91c56fbd3244c3360b4fdee688a3.jpg",
+    "Honda Ferio": "https://i.pinimg.com/1200x/b5/e0/8f/b5e08fb862cd497b0e76ebb39fa85f1f.jpg",
+    "BMW E39": "https://i.pinimg.com/736x/43/84/fc/4384fc48edc54765aaad93a1d4bc11c1.jpg",
+    "Suzuki Jimny": "https://i.pinimg.com/1200x/99/82/6f/99826f201fbeb4dd1df9f0f6f43c5d65.jpg",
+    "Toyota Crown": "https://i.pinimg.com/1200x/b8/1e/87/b81e8704ec7f91eed11ae444bcf38347.jpg",
+    "Nissan Terano": "https://i.pinimg.com/736x/7b/03/d5/7b03d5c012c5fc166f8be424fb425f5d.jpg",
+    "Mitsubishi Galant": "https://i.pinimg.com/736x/20/27/eb/2027eb9e78ca59a6627d8a4492b7dbd1.jpg",
+    "Mitsubishi Pajero V6": "https://i.pinimg.com/736x/50/27/04/502704bb8047eac69396c5db1064dd38.jpg"
   };
   
   // Perbarui item yang tidak memiliki gambar
@@ -70,6 +77,8 @@ function loadCart() {
   const subtotalElem = document.getElementById("subtotal");
   const taxElem = document.getElementById("tax");
   const cartCountElem = document.getElementById("cart-count");
+  const cartValueElem = document.getElementById("cart-value");
+  const checkoutBtn = document.getElementById("checkout-btn");
   
   if (!cartItemsList) return; // Jika tidak di halaman cart, keluar
   
@@ -78,6 +87,12 @@ function loadCart() {
   if (cartItems.length === 0) {
     emptyCart.style.display = "block";
     cartItemsList.style.display = "none";
+    if (checkoutBtn) {
+      checkoutBtn.disabled = true;
+      checkoutBtn.style.opacity = "0.5";
+    }
+    if (cartCountElem) cartCountElem.textContent = "0";
+    if (cartValueElem) cartValueElem.textContent = "Rp 0";
     return;
   }
   
@@ -127,13 +142,29 @@ function loadCart() {
   
   // Update totals
   const subtotal = totalBelanja;
-  const tax = Math.round(subtotal * 0.1);
-  const total = subtotal + tax;
+  const biayaAdmin = 500000;
+  const pajak = Math.round(totalBelanja * 0.1);
+  const totalAkhir = totalBelanja + pajak + biayaAdmin;
   
-  if (subtotalElem) subtotalElem.textContent = "Rp " + subtotal.toLocaleString();
-  if (taxElem) taxElem.textContent = "Rp " + tax.toLocaleString();
-  if (totalBelanjaElem) totalBelanjaElem.textContent = "Rp " + total.toLocaleString();
+  if (totalBelanjaElem) totalBelanjaElem.textContent = "Rp" + totalAkhir.toLocaleString();
+  if (subtotalElem) subtotalElem.textContent = "Rp" + totalBelanja.toLocaleString();
+  if (taxElem) taxElem.textContent = "Rp" + pajak.toLocaleString();
   if (cartCountElem) cartCountElem.textContent = cartItems.length;
+  if (cartValueElem) cartValueElem.textContent = "Rp" + totalBelanja.toLocaleString();
+  
+  // Enable checkout button if there are items
+  if (checkoutBtn) {
+    if (cartItems.length > 0) {
+      checkoutBtn.disabled = false;
+      checkoutBtn.style.opacity = "1";
+      checkoutBtn.onclick = function() {
+        window.location.href = "checkout.html";
+      };
+    } else {
+      checkoutBtn.disabled = true;
+      checkoutBtn.style.opacity = "0.5";
+    }
+  }
 }
 
 // Tambahkan produk ke keranjang dengan gambar
@@ -226,11 +257,18 @@ if (window.location.pathname.includes("cart.html")) {
   document.addEventListener("DOMContentLoaded", loadCart);
 }
 
+// Initialize search functionality on main page
+if (window.location.pathname.includes("index.html") || window.location.pathname.endsWith("/")) {
+  document.addEventListener("DOMContentLoaded", initializeSearch);
+}
+
 function cariProduk(event) {
   event.preventDefault(); // Mencegah reload halaman
 
   const input = document.getElementById("searchInput").value.toLowerCase();
   const cards = document.querySelectorAll("#products .card");
+  const searchResultsInfo = document.getElementById("search-results-info");
+  const clearSearchBtn = document.getElementById("clear-search-btn");
 
   let jumlahDitemukan = 0;
 
@@ -244,15 +282,110 @@ function cariProduk(event) {
     }
   });
 
+  // Update search results info and show/hide clear button
   if (input === "") {
     // Tampilkan semua produk jika input kosong
     cards.forEach(card => {
       card.parentElement.style.display = "block";
     });
+    hideSearchResults();
+  } else {
+    showSearchResults(input, jumlahDitemukan);
   }
 
   return false; // Cegah form submit
 }
+
+// Function to show search results info
+function showSearchResults(searchTerm, count) {
+  const searchResultsInfo = document.getElementById("search-results-info");
+  const clearSearchBtn = document.getElementById("clear-search-btn");
+  
+  if (searchResultsInfo) {
+    if (count > 0) {
+      searchResultsInfo.innerHTML = `
+        <div class="search-info-content">
+          <i class="bi bi-search me-2"></i>
+          Menampilkan <strong>${count}</strong> hasil untuk "<strong>${searchTerm}</strong>"
+        </div>
+      `;
+    } else {
+      searchResultsInfo.innerHTML = `
+        <div class="search-info-content no-results">
+          <i class="bi bi-exclamation-circle me-2"></i>
+          Tidak ada hasil untuk "<strong>${searchTerm}</strong>"
+        </div>
+      `;
+    }
+    searchResultsInfo.style.display = "block";
+  }
+  
+  if (clearSearchBtn) {
+    clearSearchBtn.style.display = "inline-block";
+  }
+}
+
+// Function to hide search results info
+function hideSearchResults() {
+  const searchResultsInfo = document.getElementById("search-results-info");
+  const clearSearchBtn = document.getElementById("clear-search-btn");
+  
+  if (searchResultsInfo) {
+    searchResultsInfo.style.display = "none";
+  }
+  
+  if (clearSearchBtn) {
+    clearSearchBtn.style.display = "none";
+  }
+}
+
+// Function to clear search and show all products
+function clearSearch() {
+  const searchInput = document.getElementById("searchInput");
+  const cards = document.querySelectorAll("#products .card");
+  
+  // Clear search input
+  if (searchInput) {
+    searchInput.value = "";
+  }
+  
+  // Show all products
+  cards.forEach(card => {
+    card.parentElement.style.display = "block";
+  });
+  
+  // Hide search results info
+  hideSearchResults();
+  
+  // Focus back to search input
+  if (searchInput) {
+    searchInput.focus();
+  }
+}
+
+// Add event listener for real-time search
+function initializeSearch() {
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    // Real-time search as user types
+    searchInput.addEventListener("input", function() {
+      const event = { preventDefault: () => {} };
+      cariProduk(event);
+    });
+    
+    // Clear search when input is cleared
+    searchInput.addEventListener("keyup", function(e) {
+      if (e.key === "Escape") {
+        clearSearch();
+      }
+    });
+  }
+}
+
+// Initialize search when page loads
+document.addEventListener("DOMContentLoaded", function() {
+  initializeSearch();
+});
 
 // Tampilkan checkout dengan layout baru
 function tampilkanCheckout() {

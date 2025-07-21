@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Keranjang Belanja</title>
+  <title>Keranjang Belanja | Showroom Mobil Bekas</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <meta name="theme-color" content="#dc2626">
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg">
   <div class="container">
-    <a class="navbar-brand" href="index.html"><i class="bi bi-egg-fried me-2"></i>Showroom Mobil Bekas</a>
+    <a class="navbar-brand" href="index.html"><i class="bi bi-car-front me-2"></i>Showroom Mobil Bekas</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
@@ -32,14 +33,18 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-8">
-        <h1 class="cart-hero-title">🛒 Keranjang Belanja</h1>
-        <p class="cart-hero-subtitle">Tinjau pilihan mobil impian Anda</p>
+        <h1 class="cart-hero-title"><i class="bi bi-cart-check me-3"></i>Keranjang Belanja</h1>
+        <p class="cart-hero-subtitle">Tinjau pilihan mobil impian Anda sebelum melanjutkan ke pembayaran</p>
       </div>
       <div class="col-md-4 text-end">
         <div class="cart-stats">
           <div class="stat-item">
-            <span class="stat-number" id="cart-count">1</span>
-            <span class="stat-label">Item</span>
+            <span class="stat-number" id="cart-count">0</span>
+            <span class="stat-label">Mobil Dipilih</span>
+          </div>
+          <div class="stat-item mt-3">
+            <span class="stat-number" id="cart-value">Rp 0</span>
+            <span class="stat-label">Total Nilai</span>
           </div>
         </div>
       </div>
@@ -53,7 +58,7 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="cart-items-container">
-          <h3 class="section-title">🚗 Mobil Pilihan Anda</h3>
+          <h3 class="section-title"><i class="bi bi-car-front-fill me-2"></i>Mobil Pilihan Anda</h3>
           
           <!-- Cart Items -->
           <div id="cart-items-list">
@@ -61,12 +66,14 @@
           </div>
           
           <!-- Empty Cart Message -->
-          <div id="empty-cart" class="empty-cart" style="display: none;">
+          <div id="empty-cart" class="empty-cart" style="display: block;">
             <div class="text-center py-5">
               <i class="bi bi-cart-x empty-cart-icon"></i>
               <h4>Keranjang Kosong</h4>
-              <p>Belum ada mobil yang dipilih. Mulai berbelanja sekarang!</p>
-              <a href="index.html" class="btn btn-primary">Lihat Produk</a>
+              <p>Belum ada mobil yang dipilih. Mulai berbelanja sekarang dan temukan mobil impian Anda!</p>
+              <a href="index.html" class="btn btn-primary automotive-btn">
+                <i class="bi bi-arrow-left me-2"></i>Kembali Berbelanja
+              </a>
             </div>
           </div>
         </div>
@@ -74,30 +81,44 @@
       
       <div class="col-lg-4">
         <div class="cart-summary">
-          <h4 class="summary-title">💰 Ringkasan Pesanan</h4>
-          <div class="summary-item">
-            <span>Subtotal:</span>
-            <span id="subtotal">Rp 60.000.000</span>
-          </div>
-          <div class="summary-item">
-            <span>Pajak (10%):</span>
-            <span id="tax">Rp 6.000.000</span>
-          </div>
-          <div class="summary-divider"></div>
-          <div class="summary-total">
-            <span>Total:</span>
-            <span id="total-belanja">Rp 66.000.000</span>
+          <h4 class="summary-title"><i class="bi bi-calculator me-2"></i>Ringkasan Pesanan</h4>
+          
+          <div class="summary-details">
+            <div class="summary-item">
+              <span><i class="bi bi-tag me-2"></i>Subtotal:</span>
+              <span id="subtotal">Rp 0</span>
+            </div>
+            <div class="summary-item">
+              <span><i class="bi bi-percent me-2"></i>Pajak (10%):</span>
+              <span id="tax">Rp 0</span>
+            </div>
+            <div class="summary-item">
+              <span><i class="bi bi-truck me-2"></i>Biaya Admin:</span>
+              <span>Rp 500.000</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-total">
+              <span><i class="bi bi-cash-stack me-2"></i>Total Pembayaran:</span>
+              <span id="total-belanja">Rp 500.000</span>
+            </div>
           </div>
           
           <div class="checkout-section">
-            <a href="checkout.html" class="checkout-btn">
+            <button id="checkout-btn" class="checkout-btn" disabled>
               <i class="bi bi-credit-card me-2"></i>
               Lanjut ke Pembayaran
-            </a>
+            </button>
             <a href="index.html" class="continue-shopping">
               <i class="bi bi-arrow-left me-2"></i>
               Lanjut Belanja
             </a>
+            
+            <div class="security-info mt-3">
+              <small class="text-muted">
+                <i class="bi bi-shield-check me-1"></i>
+                Transaksi aman dan terpercaya
+              </small>
+            </div>
           </div>
         </div>
       </div>
@@ -108,7 +129,7 @@
 <!-- FOOTER -->
 <footer class="bg-dark text-white text-center py-4 mt-5">
   <div class="container">
-    <p class="mb-1">&copy; Showroom mobil bekas. All rights reserved.</p>
+    <p class="mb-1">&copy; 2024 Showroom Mobil 90an. All rights reserved.</p>
     <small>Ikuti kami di:
       <a href="#" class="text-white text-decoration-underline">
         <i class="bi bi-instagram"></i> Instagram</a>,

@@ -20,6 +20,9 @@
 <form class="d-flex mx-auto" role="search" onsubmit="return cariProduk(event)">
   <input id="searchInput" class="form-control me-2" type="search" placeholder="Cari Merk Mobil..." aria-label="Search">
   <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+  <button id="clear-search-btn" class="btn btn-outline-secondary ms-2" type="button" onclick="clearSearch()" style="display: none;">
+    <i class="bi bi-x-circle"></i>
+  </button>
 </form>
 
 <div class="collapse navbar-collapse">
@@ -45,6 +48,11 @@
  <section id="products" class="py-5">
 <div class="container">
 <h2 class="text-center mb-4">Daftar Produk</h2>
+
+<!-- Search Results Info -->
+<div id="search-results-info" class="search-results-info mb-4" style="display: none;">
+  <!-- Search results will be displayed here -->
+</div>
 <div class="row" id="">
 <div class="col-md-3 mb-4">
 <div class="card" data-nama="BMW E30">

@@ -1,96 +1,744 @@
-/* ======== WARNA DASAR ======== */
+/* ======== AUTOMOTIVE THEME - LUXURY CAR INSPIRED ======== */
+:root {
+  --primary-dark: #1a1a1a;        /* Deep Black - Premium car interior */
+  --primary-red: #dc2626;          /* Racing Red - Ferrari inspired */
+  --primary-gold: #fbbf24;         /* Luxury Gold - Premium accents */
+  --secondary-silver: #e5e7eb;     /* Metallic Silver */
+  --accent-blue: #1e40af;          /* Deep Blue - BMW inspired */
+  --carbon-fiber: #2d2d2d;         /* Carbon Fiber texture */
+  --chrome: #f8fafc;               /* Chrome finish */
+  --leather-brown: #92400e;        /* Leather interior */
+  --gradient-bg: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d2d2d 100%);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --hover-shadow: 0 12px 40px rgba(220, 38, 38, 0.4);
+}
+
 body {
-  background: linear-gradient(to bottom, #d0f0c0, #ffffff);
-  font-family: 'Segoe UI', sans-serif;
+  background: var(--gradient-bg);
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  color: var(--chrome);
+  min-height: 100vh;
+  position: relative;
 }
 
-/* ======== NAVBAR ======== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(30, 64, 175, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ======== NAVBAR - PREMIUM AUTOMOTIVE STYLE ======== */
 .navbar {
-  background-color: #3fb8a8;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--carbon-fiber) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid var(--primary-red);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.navbar-brand, .nav-link {
-  color: white !important;
-  font-weight: 600;
+.navbar-brand {
+  color: var(--chrome) !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+  transition: all 0.3s ease;
 }
 
-.navbar-brand:hover, .nav-link:hover {
-  color: #d0f0c0 !important;
+.navbar-brand:hover {
+  color: var(--primary-red) !important;
+  text-shadow: 0 0 15px rgba(220, 38, 38, 0.8);
 }
 
-/* ======== HERO SECTION ======== */
+.nav-link {
+  color: var(--secondary-silver) !important;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s ease;
+  margin: 0 10px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary-red);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  color: var(--chrome) !important;
+  transform: translateY(-2px);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ======== HERO SECTION - SHOWROOM STYLE ======== */
 .hero {
-  background: url('https://i.pinimg.com/1200x/26/04/48/2604487ef6fd8922c88eb31887a5db9f.jpg') center/cover no-repeat;
-  height: 350px;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+    url('https://i.pinimg.com/1200x/26/04/48/2604487ef6fd8922c88eb31887a5db9f.jpg') center/cover no-repeat;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 3rem;
-  font-weight: bold;
-  text-shadow: 3px 3px 8px #000;
-  border-bottom: 5px solid #47a2b9;
+  color: var(--chrome);
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+  border-bottom: 4px solid var(--primary-red);
+  position: relative;
+  overflow: hidden;
 }
 
-/* ======== CARD PRODUK ======== */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.hero p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 20px;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* ======== PRODUCT CARDS - LUXURY CAR SHOWCASE ======== */
+#products {
+  background: transparent;
+  padding: 80px 0;
+}
+
+#products h2 {
+  color: var(--chrome);
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+#products h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-red), var(--primary-gold));
+  transform: translateX(-50%);
+}
+
 .card {
   border: none;
-  border-radius: 15px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  background-color: #ffffff;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-red), var(--primary-gold), var(--accent-blue));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  background-color: #b9f8f8;
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: var(--hover-shadow);
+  border-color: var(--primary-red);
 }
 
 .card img {
   width: 100%;
-  height: 220px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 15px 15px 0 0;
+  border-radius: 20px 20px 0 0;
+  transition: transform 0.4s ease;
+  filter: brightness(0.9);
+}
+
+.card:hover img {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.card-body {
+  padding: 25px;
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
 }
 
 .card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #309c85;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--chrome);
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
 }
 
 .card-text {
-  color: #555;
+  color: var(--primary-gold);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px rgba(251, 191, 36, 0.5);
 }
 
-/* ======== TOMBOL TAMBAH ======== */
+/* ======== PREMIUM BUTTONS ======== */
 .card button {
-  border-radius: 10px;
-  background-color: #25e9e9;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary-red) 0%, #b91c1c 100%);
   border: none;
-  color: white;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  color: var(--chrome);
+  font-weight: 700;
+  padding: 12px 20px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.card button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.card button:hover::before {
+  left: 100%;
 }
 
 .card button:hover {
-  background-color: #31b498;
+  background: linear-gradient(135deg, #b91c1c 0%, var(--primary-red) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
 }
 
-/* ======== FOOTER ======== */
+/* ======== FOOTER - PREMIUM AUTOMOTIVE STYLE ======== */
 footer {
-  background-color: #4cc7b7;
-  color: #e8f5e9;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--carbon-fiber) 100%);
+  color: var(--chrome);
+  border-top: 3px solid var(--primary-red);
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+}
+
+footer p {
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 footer a {
-  color: #a5d6a7;
+  color: var(--secondary-silver);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 footer a:hover {
+  color: var(--primary-red);
+  text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+}
+
+footer small {
+  opacity: 0.8;
+}
+
+/* ======== SEARCH FORM - AUTOMOTIVE STYLE ======== */
+.navbar .form-control {
+  background: rgba(45, 45, 45, 0.8);
+  border: 2px solid rgba(220, 38, 38, 0.3);
+  border-radius: 25px;
+  color: var(--chrome);
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.navbar .form-control:focus {
+  background: rgba(45, 45, 45, 0.9);
+  border-color: var(--primary-red);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+  color: var(--chrome);
+}
+
+.navbar .form-control::placeholder {
+  color: var(--secondary-silver);
+  opacity: 0.7;
+}
+
+.navbar .btn-outline-light {
+  background: linear-gradient(135deg, var(--primary-red) 0%, #b91c1c 100%);
+  border: 2px solid var(--primary-red);
+  border-radius: 25px;
+  color: var(--chrome);
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.navbar .btn-outline-light:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, var(--primary-red) 100%);
+  border-color: var(--primary-red);
+  color: var(--chrome);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+}
+
+/* ======== RESPONSIVE DESIGN ======== */
+@media (max-width: 768px) {
+  .hero {
+    height: 400px;
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  #products h2 {
+    font-size: 2rem;
+  }
+  
+  .card {
+    margin-bottom: 30px;
+  }
+  
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .nav-link {
+    margin: 0 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    height: 350px;
+    font-size: 2rem;
+  }
+  
+  .card img {
+    height: 200px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .card-text {
+    font-size: 1.2rem;
+  }
+}
+
+/* ======== CART & CHECKOUT BASIC STYLING ======== */
+.cart-summary, .payment-section {
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+.summary-title, .payment-title {
+  color: var(--chrome);
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-red);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  color: var(--secondary-silver);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-gold);
+  padding: 15px 0;
+  margin-top: 10px;
+  border-top: 2px solid var(--primary-red);
+}
+
+.checkout-btn {
+  background: linear-gradient(135deg, var(--primary-red) 0%, #b91c1c 100%);
+  color: var(--chrome);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+  cursor: pointer;
+}
+
+.checkout-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #b91c1c 0%, var(--primary-red) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+}
+
+.checkout-btn:disabled {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.continue-shopping {
+  display: block;
+  text-align: center;
+  color: var(--secondary-silver);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.continue-shopping:hover {
+  color: var(--primary-red);
+  background: rgba(220, 38, 38, 0.1);
+  border-color: var(--primary-red);
+}
+
+.cart-item {
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cart-item-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-item-title {
+  color: var(--chrome);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.cart-item-price {
+  color: var(--primary-gold);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.quantity-btn {
+  background: var(--primary-red);
+  color: var(--chrome);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quantity-btn:hover {
+  background: #b91c1c;
+  transform: scale(1.1);
+}
+
+.quantity-input {
+  background: rgba(45, 45, 45, 0.8);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: var(--chrome);
+  text-align: center;
+  width: 60px;
+  margin: 0 8px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.remove-btn {
+  background: #dc2626;
   color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove-btn:hover {
+  background: #b91c1c;
+  transform: scale(1.05);
+}
+
+/* Form Styling */
+.form-control {
+  background: rgba(45, 45, 45, 0.8);
+  border: 2px solid rgba(220, 38, 38, 0.3);
+  border-radius: 8px;
+  color: var(--chrome);
+  padding: 10px 12px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background: rgba(45, 45, 45, 0.9);
+  border-color: var(--primary-red);
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+  color: var(--chrome);
+}
+
+.form-control::placeholder {
+  color: var(--secondary-silver);
+  opacity: 0.7;
+}
+
+.form-label {
+  color: var(--chrome);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.checkout-section {
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+  color: var(--chrome);
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-red);
+}
+
+.payment-method {
+  margin-bottom: 15px;
+}
+
+.payment-label {
+  display: block;
+  padding: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(45, 45, 45, 0.5);
+}
+
+.payment-method input[type="radio"]:checked + .payment-label {
+  border-color: var(--primary-red);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.bank-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.bank-logo {
+  width: 50px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.bank-details strong {
+  color: var(--chrome);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.account-info {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: var(--primary-gold);
+  font-size: 0.9rem;
+}
+
+.account-name {
+  color: var(--secondary-silver);
+  font-size: 0.8rem;
+}
+
+/* Progress Steps */
+.progress-step {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-step.active {
+  background: var(--primary-red);
+  color: var(--chrome);
+  font-weight: 600;
+}
+
+.progress-step.completed {
+  background: var(--primary-gold);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+/* ======== SEARCH FUNCTIONALITY STYLING ======== */
+.search-results-info {
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-info-content {
+  color: var(--chrome);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.search-info-content.no-results {
+  color: var(--primary-gold);
+}
+
+.search-info-content i {
+  color: var(--primary-red);
+  font-size: 1.1rem;
+}
+
+.search-info-content.no-results i {
+  color: var(--primary-gold);
+}
+
+.search-info-content strong {
+  color: var(--primary-red);
+}
+
+.search-info-content.no-results strong {
+  color: var(--primary-gold);
+}
+
+#clear-search-btn {
+  background: rgba(108, 117, 125, 0.8);
+  border: 2px solid rgba(108, 117, 125, 0.5);
+  color: var(--chrome);
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+#clear-search-btn:hover {
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+  color: var(--chrome);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* Enhanced search input styling */
+.navbar .form-control {
+  transition: all 0.3s ease;
+}
+
+.navbar .form-control:focus {
+  transform: scale(1.02);
+}
+
+/* Search animation for better UX */
+@keyframes searchPulse {
+  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+.navbar .btn-outline-light:active {
+  animation: searchPulse 0.6s;
 }
 
 /* ======== ANIMASI SCROLL ======== */
